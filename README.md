@@ -59,7 +59,9 @@
 <div align="center">
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https:https://www.linkedin.com/in/caelayne-aparecida-ribeirosoares7ab68235a?utm_source=share_via&utm_content=profile&utm_medium=member_android)
-[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto: soarescaelayne14@gmail.com)
+<a href="mailto: soarescaelayne14@gmail.com">
+  <img src="https://shields.io" alt="Gmail" />
+</a>
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/caelayne7)
 
 </div>
