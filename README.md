@@ -19,9 +19,9 @@
 
 <div align="center">
 
-[![My Skills](https://skillicons.dev/icons?i=nodejs,js,html,css,postgresql,git,github,vscode)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=nodejs,js,html,css,express,postman,nestjs,postgresql,git,github,vscode)](https://skillicons.dev)
 
-</div>
+</div>  
 
 ---
 
