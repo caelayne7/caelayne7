@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busca CEP - ViaCEP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Estilo do Cabeçalho */
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Card branco centralizado */
+    .card-custom {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .titulo-principal {
+      color: #5a51e1;
+      font-weight: 600;
+    }
+
+    .texto-descricao {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    label {
+      color: #495057;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+
+  <header class="py-3 mb-auto">
+    <div class="container d-flex justify-content-center align-items-center">
+      <span class="fs-5 fw-bold text-white">📍 ViaCEP Consulta</span>
+    </div>
+  </header>
+
+  <main class="container my-auto py-4" style="max-width: 600px;">
+    <div class="card-custom">
+      <h3 class="titulo-principal mb-2">Informe o CEP</h3>
+      
+      <p class="texto-descricao mb-4">
+        Digite o CEP e ao sair o campo o endereço será completado. Pode utilizar a tecla TAB após digitar o CEP.
+      </p>
+
+      <form>
+        <div class="row mb-3 align-items-center">
+          <label for="cep" class="col-sm-2 col-form-label text-sm-end">Cep:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="cep" maxlength="8" placeholder="00000000">
+          </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+          <label for="rua" class="col-sm-2 col-form-label text-sm-end">Rua:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="rua">
+          </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+          <label for="bairro" class="col-sm-2 col-form-label text-sm-end">Bairro:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="bairro">
+          </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+          <label for="cidade" class="col-sm-2 col-form-label text-sm-end">Cidade:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="cidade">
+          </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+          <label for="uf" class="col-sm-2 col-form-label text-sm-end">Estado:</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" id="uf">
+          </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+          <label for="ibge" class="col-sm-2 col-form-label text-sm-end">IBGE:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="ibge">
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+
+  <script>
+    const inputCep = document.querySelector('#cep');
+    const inputRua = document.querySelector('#rua');
+    const inputBairro = document.querySelector('#bairro');
+    const inputCidade = document.querySelector('#cidade');
+    const inputUf = document.querySelector('#uf');
+    const inputIbge = document.querySelector('#ibge');
+
+    function limpaFormulario() {
+      inputRua.value = '';
+      inputBairro.value = '';
+      inputCidade.value = '';
+      inputUf.value = '';
+      inputIbge.value = '';
+    }
+
+    inputCep.addEventListener('blur', async () => {
+      const cep = inputCep.value.replace(/\D/g, '');
+
+      if (cep.length === 8) {
+        try {
+          const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const dados = await resposta.json();
+
+          if (dados.erro) {
+            alert('CEP não encontrado!');
+            limpaFormulario();
+          } else {
+            inputRua.value = dados.logradouro;
+            inputBairro.value = dados.bairro;
+            inputCidade.value = dados.localidade;
+            inputUf.value = dados.uf;
+            inputIbge.value = dados.ibge;
+          }
+        } catch (erro) {
+          console.error('Erro ao consultar a API:', erro);
+          limpaFormulario();
+        }
+      } else {
+        limpaFormulario();
+      }
+    });
+  </script>
+</body>
+</html>
